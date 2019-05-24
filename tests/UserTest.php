@@ -2,12 +2,15 @@
 
 namespace App\Tests;
 
+use App\Entity\User;
 use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
 {
-    public function testSomething()
+    public function testSomething(): void
     {
-        $this->assertTrue(true);
+        $user = new User();
+        $this->assertIsString($user->getFullName());
+        $this->assertSame($user->getEmail(), $user->getFullName());
     }
 }
