@@ -126,4 +126,26 @@ class User
 
         return $this;
     }
+    
+    public function getFullName(): string
+    {
+        if (!empty($this->firstName) && !empty($this->lastName)) {
+            if (empty($this->middleName)) {
+                return implode(' ', [
+                    $this->firstName,
+                    $this->lastName
+                ]);
+            } else {
+                return implode(' ', [
+                    $this->firstName,
+                    $this->middleName,
+                    $this->lastName
+                ]);
+            }
+        }
+    
+        if (empty($this->firstName) || empty($this->lastName)) {
+            return $this->email;
+        }
+    }
 }
