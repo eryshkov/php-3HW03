@@ -7,12 +7,26 @@ use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
 {
-    public function testEmptyUser(): void
+    protected function makeUser(
+        string $email,
+        string $firstName = null,
+        string $middleName = null,
+        string $lastName = null
+    ): User
     {
         $user = new User();
-        
-        $email = 'test@mac.mac';
+        $user->setFirstName($firstName);
+        $user->setMiddleName($middleName);
+        $user->setLastName($lastName);
         $user->setEmail($email);
+        
+        return $user;
+    }
+    
+    public function testEmptyUser(): void
+    {
+        $email = 'test@mac.mac';
+        $user = $this->makeUser($email);
         
         $this->assertIsString($user->getFullName());
         $this->assertSame($user->getEmail(), $user->getFullName());
@@ -21,16 +35,11 @@ class UserTest extends TestCase
     
     public function testFullUser(): void
     {
-        $user = new User();
-        
         $email = 'test@mac.mac';
         $firstName = 'Ivan';
         $middleName = 'Petrovich';
         $lastName = 'Sidorov';
-        $user->setFirstName($firstName);
-        $user->setMiddleName($middleName);
-        $user->setLastName($lastName);
-        $user->setEmail($email);
+        $user = $this->makeUser($email, $firstName, $middleName, $lastName);
         
         $this->assertIsString($user->getFullName());
         $this->assertSame(implode(' ', [
@@ -43,32 +52,24 @@ class UserTest extends TestCase
     
     public function testUserWithoutMiddleName(): void
     {
-        $user = new User();
-    
         $email = 'test@mac.mac';
         $firstName = 'Ivan';
         $middleName = '';
         $lastName = 'Sidorov';
-        $user->setFirstName($firstName);
-        $user->setLastName($lastName);
-        $user->setEmail($email);
-    
+        $user = $this->makeUser($email, $firstName, $middleName, $lastName);
+        
         $this->assertIsString($user->getFullName());
         $this->assertSame(implode(' ', [
             $firstName,
             $lastName,
         ]), $user->getFullName());
-    
-        $user = new User();
-    
+        
         $email = 'test@mac.mac';
         $firstName = 'Ivan';
         $middleName = null;
         $lastName = 'Sidorov';
-        $user->setFirstName($firstName);
-        $user->setLastName($lastName);
-        $user->setEmail($email);
-    
+        $user = $this->makeUser($email, $firstName, $middleName, $lastName);
+        
         $this->assertIsString($user->getFullName());
         $this->assertSame(implode(' ', [
             $firstName,
@@ -78,31 +79,42 @@ class UserTest extends TestCase
     
     public function testUserWithoutFirstName(): void
     {
-        $user = new User();
-    
         $email = 'test@mac.mac';
         $firstName = '';
         $middleName = 'Petrovich';
         $lastName = 'Sidorov';
-        $user->setFirstName($firstName);
-        $user->setMiddleName($middleName);
-        $user->setLastName($lastName);
-        $user->setEmail($email);
-    
+        $user = $this->makeUser($email, $firstName, $middleName, $lastName);
+        
         $this->assertIsString($user->getFullName());
         $this->assertSame($email, $user->getFullName());
-    
-        $user = new User();
-    
+        
         $email = 'test@mac.mac';
         $firstName = null;
         $middleName = 'Petrovich';
         $lastName = 'Sidorov';
-        $user->setFirstName($firstName);
-        $user->setMiddleName($middleName);
-        $user->setLastName($lastName);
-        $user->setEmail($email);
+        $user = $this->makeUser($email, $firstName, $middleName, $lastName);
+        
+        $this->assertIsString($user->getFullName());
+        $this->assertSame($email, $user->getFullName());
+    }
     
+    public function testUserWithoutLastName(): void
+    {
+        $email = 'test@mac.mac';
+        $firstName = '';
+        $middleName = 'Petrovich';
+        $lastName = 'Sidorov';
+        $user = $this->makeUser($email, $firstName, $middleName, $lastName);
+        
+        $this->assertIsString($user->getFullName());
+        $this->assertSame($email, $user->getFullName());
+        
+        $email = 'test@mac.mac';
+        $firstName = null;
+        $middleName = 'Petrovich';
+        $lastName = 'Sidorov';
+        $user = $this->makeUser($email, $firstName, $middleName, $lastName);
+        
         $this->assertIsString($user->getFullName());
         $this->assertSame($email, $user->getFullName());
     }
