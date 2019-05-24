@@ -129,22 +129,26 @@ class User
     
     public function getFullName(): string
     {
-        if (!empty($this->firstName) && !empty($this->lastName)) {
-            if (empty($this->middleName)) {
+        $firstName = trim($this->firstName);
+        $middleName = trim($this->middleName);
+        $lastName = trim($this->lastName);
+        
+        if (!empty($firstName) && !empty($lastName)) {
+            if (empty($middleName)) {
                 return implode(' ', [
-                    $this->firstName,
-                    $this->lastName
+                    $firstName,
+                    $lastName
                 ]);
             } else {
                 return implode(' ', [
-                    $this->firstName,
-                    $this->middleName,
-                    $this->lastName
+                    $firstName,
+                    $middleName,
+                    $lastName
                 ]);
             }
         }
     
-        if (empty($this->firstName) || empty($this->lastName)) {
+        if (empty($firstName) || empty($lastName)) {
             return $this->email;
         }
     }
