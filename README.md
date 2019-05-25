@@ -16,7 +16,7 @@
 * 
 * Скрипт сборки проекта должен запускаться из папки с проектом примерно так:
     ```
-  php ./vendor/phing/phing/bin/phing -f ./build/production/build.xml -Dapp.destination.path=/Users/eugem/Developer/PHP/php-3HW02.prod -Dapp.domain=test.com -Dapp.db_driver=mysql -Dapp.db_user=eug -Dapp.db_password=123 -Dapp.db_host=php-3HW02.mac -Dapp.db_port=8889 -Dapp.db_name=php3hw02
+  php ./vendor/phing/phing/bin/phing -f ./build/production/build.xml -Dapp.destination.path=/Users/eugem/Developer/PHP/php-3HW03.prod -Dapp.domain=test.com -Dapp.db_driver=mysql -Dapp.db_user=eug -Dapp.db_password=123 -Dapp.db_host=php-3HW03.mac -Dapp.db_port=8889 -Dapp.db_name=php3hw03
   ```
   Следующие параметры должны быть обязательно указаны:
   * `-Dapp.destination.path`
